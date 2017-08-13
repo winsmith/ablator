@@ -1,3 +1,26 @@
-{% for object in object_list %}
-{{ object }}
-{% endfor %}
+{% extends '_base.html' %}
+
+{% block content %}
+    <h1>Users</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Is Staff?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.username }}</td>
+                    <td>{{ object.get_full_name }}</td>
+                    <td>{{ object.email }}</td>
+                    <td>{{ object.is_staff }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
