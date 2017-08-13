@@ -1,0 +1,31 @@
+{% extends '_form_container.html' %}
+{% load bootstrap4 %}
+
+{% block user_nav_active %}active{% endblock %}
+
+{% block form %}
+    {% if object %}
+        <h1>Edit {{ object.username }}</h1>
+    {% else %}
+        <h1>Create New User</h1>
+    {% endif %}
+    <hr>
+    <form action="." method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <hr>
+        {% buttons %}
+            {% if object.id %}
+                <a class="btn btn-sm btn-outline-danger"
+                   href="{% url 'flavor-delete' flavor.id %}">Delete {{ object.username }}</a>
+            {% endif %}
+
+            <span style="float: right;">
+
+        <a class="btn btn-lg btn-outline-secondary"
+           href="{% url 'user-list' %}">Go Back</a>
+        <button type="submit" class="btn btn-primary btn-lg">Save</button>
+        </span>
+        {% endbuttons %}
+    </form>
+{% endblock %}

@@ -23,6 +23,11 @@
                     <td>{{ object.is_staff }}</td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td colspan="4">
+                    <a href="{% url 'user-create' %}" class="btn btn-outline-secondary">Add New User</a>
+                </td>
+            </tr>
         </tbody>
     </table>
 {% endblock %}
