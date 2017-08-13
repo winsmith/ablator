@@ -3,8 +3,6 @@
 {% block users_nav_active %}active{% endblock %}
 
 {% block content %}
-    <h1>Users</h1>
-
     <div class="row">
         <div class="col-md-8">
             <table class="table table-hover">
@@ -19,7 +17,7 @@
                 {% for object in object_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'user-update' object.id %}" class="display-4">
+                            <a href="{% url 'user-update' object.id %}" class="display-4 text-dark">
                                 {{ object.username }}
                             </a>
                         </td>
@@ -46,7 +44,8 @@
             </table>
         </div>
         <div class="col">
-            <p>Add and Edit users here. All users in this list will be able to log in to ablator.</p>
+            <p>Add and Edit users here. All users in this list will be able to log in to ablator,
+                and manage Apps, Functionalityies, and so on.</p>
             <p>Users marked as staff are able to access this list, and add and edit users.</p>
         </div>
     </div>
