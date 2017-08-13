@@ -5,29 +5,49 @@
 {% block content %}
     <h1>Users</h1>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Is Staff?</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for object in object_list %}
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td>{{ object.username }}</td>
-                    <td>{{ object.get_full_name }}</td>
-                    <td>{{ object.email }}</td>
-                    <td>{{ object.is_staff }}</td>
+                    <th>Username</th>
+                    <th>Full Name and Email</th>
+                    <th>Is Staff?</th>
                 </tr>
-            {% endfor %}
-            <tr>
-                <td colspan="4">
-                    <a href="{% url 'user-create' %}" class="btn btn-outline-secondary">Add New User</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'user-update' object.id %}" class="display-4">
+                                {{ object.username }}
+                            </a>
+                        </td>
+                        <td>
+                            <strong>{{ object.get_full_name }}</strong><br>
+                            {{ object.email }}
+                        </td>
+                        <td>
+                            {% if object.is_staff %}
+                                ✅
+                            {% else %}
+                                ❌
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4">
+                        <a href="{% url 'user-create' %}" class="btn btn-outline-secondary">Add New
+                            User</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <p>Add and Edit users here. All users in this list will be able to log in to ablator.</p>
+            <p>Users marked as staff are able to access this list, and add and edit users.</p>
+        </div>
+    </div>
 {% endblock %}

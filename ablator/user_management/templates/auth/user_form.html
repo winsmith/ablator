@@ -1,7 +1,7 @@
 {% extends '_form_container.html' %}
 {% load bootstrap4 %}
 
-{% block user_nav_active %}active{% endblock %}
+{% block users_nav_active %}active{% endblock %}
 
 {% block form %}
     {% if object %}
@@ -17,7 +17,7 @@
         {% buttons %}
             {% if object.id %}
                 <a class="btn btn-sm btn-outline-danger"
-                   href="{% url 'flavor-delete' flavor.id %}">Delete {{ object.username }}</a>
+                   href="{% url 'user-delete' object.id %}">Delete {{ object.username }}</a>
             {% endif %}
 
             <span style="float: right;">
