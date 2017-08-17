@@ -8,12 +8,12 @@ from .availability import (
     create_new_availability_with_random_flavor,
     enable_availability_by_user_count,
 )
-from ablator.core.functionality.rollout_strategies import (
+from .rollout_strategies import (
     check_roll_out_enable_globally,
     assert_roll_out_is_not_paused,
-    assert_existence_of_release
+    assert_existence_of_release,
+    check_roll_out_recall
 )
-from .rollout_strategies import check_roll_out_recall
 from ..models import Flavor, Functionality, ClientUser, Availability
 
 
