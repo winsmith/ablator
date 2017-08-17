@@ -1,0 +1,7 @@
+language: python
+python: "3.6"
+install: 
+  - "pip install -r ablator/requirements.txt"
+script:
+  - "flake8 --max-line-length 120 ablator/"
+  - "ablator/manage.py test"
