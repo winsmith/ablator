@@ -1,8 +1,10 @@
 from django.test import TestCase
 
-from core.functionality import *
-from core.models import Functionality, Release, App
-from user_management.models import Company
+from ablator.core.functionality import WhichContext, NoAvailability
+from ablator.core.functionality.rollout_strategies import check_roll_out_recall, \
+    check_roll_out_enable_globally, assert_existence_of_release
+from ablator.core.models import Functionality, App, Release
+from ablator.user_management.models import Company
 
 
 class RollOutRecall(TestCase):
