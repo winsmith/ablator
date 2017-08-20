@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls.base import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.admin.views.decorators import staff_member_required
@@ -57,3 +59,11 @@ class OrganizationUpdate(UpdateView):
 
     def get_queryset(self):
         return Organization.objects.filter(id=self.request.user.ablatoruser.organization.id)
+
+
+@method_decorator(login_required, name='dispatch')
+class UserDetail(DetailView):
+    model = User
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)
