@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-
+from request_logging.logging import save_request_log_entry
 from .availability import (
     check_for_existing_enabled_availability,
     get_availability, assert_existence_of_flavors,
@@ -86,7 +86,17 @@ def which(client_user: ClientUser, functionality: Functionality) -> Optional[Ava
         try:
             av = func(context)
             if av:
+                save_request_log_entry(
+                    str(context.functionality.id),
+                    str(av.flavor_id),
+                    func.__name__
+                )
                 return av
         except NoAvailability:
+            save_request_log_entry(
+                str(context.functionality.id),
+                None,
+                func.__name__
+            )
             return None
     return None
