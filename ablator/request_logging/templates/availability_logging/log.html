@@ -1,8 +1,16 @@
-<pre>
+{% for log_collection in logs %}
 
-    {% for log in logs %}
-        {{ log }}
-        <br><br>
-    {% endfor %}
+    <table class="table">
 
-</pre>
+        {% for log in log_collection %}
+            <tr>
+                <td>{{ log.functionality_id }}</td>
+                <td>{{ log.flavor_id }}</td>
+                <td>{{ log.timestamp }}</td>
+                <td>{{ log.action }}</td>
+            </tr>
+
+        {% endfor %}
+    </table>
+{% endfor %}
+

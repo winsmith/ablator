@@ -21,7 +21,9 @@ def _increase(k):
 
 
 def _append(list_key, v):
-    cache.get_or_set(list_key, [], timeout=settings.ACTIVATION_LOGGING_CACHE_TIMEOUT).append(v)
+    the_list = cache.get_or_set(list_key, [], timeout=settings.ACTIVATION_LOGGING_CACHE_TIMEOUT)
+    the_list.append(v)
+    _save(list_key, the_list)
 
 
 def _update_timestamp(k):
@@ -36,8 +38,8 @@ def update_dict(dict_key, k, v):
 
 
 def append_to_list(list_key, v):
-    current_list = _retrieve(list_key)
-    if current_list and list_key not in current_list:
+    current_list = _retrieve_or_save(list_key, [])
+    if list_key not in current_list:
         _append(list_key, v)
 
 
