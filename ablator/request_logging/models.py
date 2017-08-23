@@ -37,5 +37,3 @@ class RequestLog:
     @property
     def client_user_id_short(self):
         return str(self.client_user_id)[:6]
-
-
