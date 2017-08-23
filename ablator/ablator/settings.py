@@ -102,7 +102,7 @@ CACHES = {
 }
 
 # We want to keep the activation logging for basically ever, or until next relaunch
-ACTIVATION_LOGGING_CACHE_TIMEOUT = None
+ACTIVATION_LOGGING_CACHE_TIMEOUT = 60 * 60 * 24 * 30  # 1 month
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

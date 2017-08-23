@@ -89,14 +89,16 @@ def which(client_user: ClientUser, functionality: Functionality) -> Optional[Ava
                 save_request_log_entry(
                     str(context.functionality.id),
                     str(av.flavor_id),
-                    func.__name__
+                    func.__name__,
+                    client_user.id
                 )
                 return av
         except NoAvailability:
             save_request_log_entry(
                 str(context.functionality.id),
                 None,
-                func.__name__
+                func.__name__,
+                client_user.id
             )
             return None
     return None

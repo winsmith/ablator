@@ -3,6 +3,7 @@ from typing import Optional
 from django.utils import timezone
 
 from request_logging.base import append_to_list, retrieve
+from request_logging.models import RequestLog
 
 LOK_KEY = 'list-of-timestamp-keys'
 
@@ -15,43 +16,46 @@ def list_timestamp_keys():
     return retrieve(LOK_KEY)
 
 
-def generate_current_key_for_id(id):
-    current_key = '{}-{}'.format(id, timezone.now().strftime("%Y-%M-%d"))
+def generate_key_for_id_hourly(func_id: str, timestamp=None):
+    """
+    Generate a string to be used as key for grouping request logs. The string is returned, and it
+    is stored in the list of existing valid keys.
+
+    :param func_id: A functionality id
+    :param timestamp: a DateTime object for the requested timestamp
+    :return: A string to be used as key. Contains the year, month, day, and hour of the timestamp
+    """
+    time_stamp_for_key = timestamp if timestamp else timezone.now()
+    current_key = '{}-{}'.format(func_id, time_stamp_for_key.strftime("%Y-%m-%d-%H"))
     save_new_timestamp_key(current_key)
     return current_key
 
 
-def save_request_log_entry(functionality_id: str, flavor_id: Optional[str], action: str):
-    current_key = generate_current_key_for_id(functionality_id)
+def save_request_log_entry(functionality_id: str, flavor_id: Optional[str],
+                           action: str, client_user_id: str = None):
+    current_key = generate_key_for_id_hourly(functionality_id)
     timestamp = timezone.now()
     f_action = {
         'functionality_id': functionality_id,
         'flavor_id': flavor_id,
         'timestamp': timestamp,
-        'action': action
+        'action': action,
+        'client_user_id': client_user_id,
     }
     append_to_list(current_key, f_action)
 
 
-def get_request_log_actions(timestamp_key):
-    return retrieve(timestamp_key)
+def get_request_logs(timestamp_key):
+    request_log_dicts = retrieve(timestamp_key)
+    request_logs = [
+        RequestLog(
+            d['functionality_id'],
+            d['flavor_id'],
+            d['timestamp'],
+            d['action'],
+            d['client_user_id']
+        )
 
-
-# - Future -
-# chunk data on a daily basis
-# create keys for these chunks + functionality id
-# create keys for these chunks + flavor id
-# add arrays of dicts to the keys
-# add counters based on similar keys and increase them
-# encapsulate all this in abstract methods
-# add methods to retrieve data as well
-# async
-
-# log buckets:
-# - all activity for an app
-# - all activity for a functionality
-# - all activity for a flavor
-# - new activations for a functionality
-# - new activations for a flavor
-# - return checks for a functionality
-# - return checks for a flavor
+        for d in request_log_dicts
+    ]
+    return request_logs
