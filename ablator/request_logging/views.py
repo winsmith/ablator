@@ -13,6 +13,7 @@ class LogList(TemplateView):
         if not timestamp_keys:
             return context
         for timestamp_key in timestamp_keys:
-            logs[timestamp_key] = get_request_logs(timestamp_key)
+            if pk in timestamp_key:
+                logs[timestamp_key] = get_request_logs(timestamp_key)
         context['logs'] = logs
         return context
