@@ -15,4 +15,4 @@ ENV TIME_ZONE=UTC
 ENV PORT=8000
 EXPOSE 8000
 RUN python manage.py collectstatic --noinput --clear
-CMD python manage.py migrate && gunicorn -w 4 ablator.wsgi --access-logfile - --error-logfile -
+CMD python manage.py migrate && gunicorn -w 4 ablator.wsgi --access-logfile - --error-logfile - --worker-class gevent
