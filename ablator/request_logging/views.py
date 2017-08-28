@@ -9,9 +9,10 @@ class LogList(TemplateView):
     def get_context_data(self, pk, **kwargs):
         context = super().get_context_data(**kwargs)
         timestamp_keys = list_timestamp_keys()
-        logs = {}
+
         if not timestamp_keys:
             return context
+        logs = {}
         for timestamp_key in timestamp_keys:
             if pk in timestamp_key:
                 logs[timestamp_key] = get_request_logs(timestamp_key)

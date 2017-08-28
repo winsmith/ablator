@@ -4,7 +4,9 @@ from django.utils import timezone
 
 from request_logging.base import append_to_list, retrieve
 from request_logging.models import RequestLog
+import logging
 
+logger = logging.getLogger('ablator.functionality')
 LOK_KEY = 'list-of-timestamp-keys'
 
 
@@ -32,7 +34,8 @@ def generate_key_for_id_hourly(func_id: str, timestamp=None):
 
 
 def save_request_log_entry(functionality_id: str, flavor_id: Optional[str],
-                           action: str, client_user_id: str = None):
+                           action: str, client_user_id: str = None,
+                           elapsed_time: float = None):
     current_key = generate_key_for_id_hourly(functionality_id)
     timestamp = timezone.now()
     f_action = {
@@ -41,8 +44,10 @@ def save_request_log_entry(functionality_id: str, flavor_id: Optional[str],
         'timestamp': timestamp,
         'action': action,
         'client_user_id': client_user_id,
+        'elapsed_time': elapsed_time
     }
     append_to_list(current_key, f_action)
+    logger.info(action, extra=f_action)
 
 
 def get_request_logs(timestamp_key):
@@ -53,9 +58,18 @@ def get_request_logs(timestamp_key):
             d['flavor_id'],
             d['timestamp'],
             d['action'],
-            d['client_user_id']
+            d['client_user_id'],
+            d['elapsed_time']
         )
 
         for d in request_log_dicts
     ]
     return request_logs
+
+
+def get_request_logs_for_functionality_id(functionality_id):
+    timestamp_keys = list_timestamp_keys()
+    logs = {}
+    for timestamp_key in timestamp_keys:
+        if functionality_id in timestamp_key:
+            logs[timestamp_key] = get_request_logs(timestamp_key)

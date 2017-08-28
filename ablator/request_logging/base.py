@@ -39,7 +39,7 @@ def update_dict(dict_key, k, v):
 
 def append_to_list(list_key, v):
     current_list = _retrieve_or_save(list_key, [])
-    if list_key not in current_list:
+    if v not in current_list:
         _append(list_key, v)
 
 

@@ -16,6 +16,7 @@
                     {% endif %}
                 </td>
                 <td><kbd>{{ log.action }}</kbd></td>
+                <td>{{ log.elapsed_time|floatformat:"-5" }}s</td>
             </tr>
 
         {% endfor %}

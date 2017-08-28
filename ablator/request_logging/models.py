@@ -9,12 +9,14 @@ class RequestLog:
     _flavor: Optional[Flavor] = None
 
     def __init__(self, functionality_id: str, flavor_id: Optional[str],
-                 timestamp: datetime, action: str, client_user_id: str = None):
+                 timestamp: datetime, action: str, client_user_id: str = None,
+                 elapsed_time: float = None):
         self.functionality_id = functionality_id
         self.flavor_id = flavor_id
         self.timestamp = timestamp
         self.action = action
         self.client_user_id = client_user_id
+        self.elapsed_time = elapsed_time
 
     @property
     def functionality(self):
