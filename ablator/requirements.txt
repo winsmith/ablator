@@ -2,3 +2,4 @@ Django
 djangorestframework
 django-bootstrap4
 flake8
+gunicorn
