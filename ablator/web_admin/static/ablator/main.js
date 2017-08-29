@@ -4,11 +4,12 @@ $(document).ready(function () {
 });
 
 function reloadFunctionalityPage() {
-    reloadEnabledUsersCount();
-    reloadLogWindow();
+    reloadFunctionalityEnabledUsersCount();
+    reloadFunctionalityProgress();
+    reloadFunctionalityLogWindow();
 }
 
-function reloadEnabledUsersCount() {
+function reloadFunctionalityEnabledUsersCount() {
     var enabledUsersDiv = $('#functionality-enabled-users');
     if (enabledUsersDiv) {
         $.get(enabledUsersDiv.attr("data-id"), function (data) {
@@ -17,7 +18,16 @@ function reloadEnabledUsersCount() {
     }
 }
 
-function reloadLogWindow() {
+function reloadFunctionalityProgress() {
+    var progressSection = $('#functionality-progress');
+    if (progressSection) {
+        $.get(progressSection.attr("data-id"), function (data) {
+            progressSection.html(data);
+        });
+    }
+}
+
+function reloadFunctionalityLogWindow() {
     var logWindow = $("#log-window");
     if (logWindow) {
         $.get(logWindow.attr("data-id"), function (data) {

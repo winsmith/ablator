@@ -25,6 +25,11 @@ class FunctionalityPartEnabledUsers(FunctionalityDetail):
 
 
 @method_decorator(login_required, name='dispatch')
+class FunctionalityPartProgress(FunctionalityDetail):
+    template_name = 'core/functionality/_progress.html'
+
+
+@method_decorator(login_required, name='dispatch')
 class FunctionalityCreate(CreateView):
     model = Functionality
     fields = ['name', 'rollout_strategy']

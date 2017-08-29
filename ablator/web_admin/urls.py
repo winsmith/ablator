@@ -23,7 +23,9 @@ urlpatterns = [
     url(r'functionality/(?P<pk>[^/]+)/update/$', functionality.FunctionalityUpdate.as_view(), name='functionality-update'),
     url(r'functionality/(?P<pk>[^/]+)/delete/$', functionality.FunctionalityDelete.as_view(), name='functionality-delete'),
 
+    # Functionality Partials
     url(r'functionality/enabled-users/(?P<pk>[^/]+)/$', functionality.FunctionalityPartEnabledUsers.as_view(), name='functionality-part-enabled-users'),
+    url(r'functionality/progress/(?P<pk>[^/]+)/$', functionality.FunctionalityPartProgress.as_view(), name='functionality-part-progress'),
 
     # Flavor
     url(r'functionality/(?P<pk>[^/]+)/add_flavor/$', flavor.FlavorCreate.as_view(), name='flavor-create'),
