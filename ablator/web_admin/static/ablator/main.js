@@ -1,12 +1,15 @@
 $(document).ready(function () {
     reloadFunctionalityPage();
     window.setInterval(reloadFunctionalityPage, 1000);
+
+    reloadFunctionalityLogWindow();
+    window.setInterval(reloadFunctionalityLogWindow, 5000);
 });
 
 function reloadFunctionalityPage() {
     reloadFunctionalityEnabledUsersCount();
     reloadFunctionalityProgress();
-    reloadFunctionalityLogWindow();
+    reloadFunctionalityFlavors();
 }
 
 function reloadFunctionalityEnabledUsersCount() {
@@ -23,6 +26,15 @@ function reloadFunctionalityProgress() {
     if (progressSection) {
         $.get(progressSection.attr("data-id"), function (data) {
             progressSection.html(data);
+        });
+    }
+}
+
+function reloadFunctionalityFlavors() {
+    var flavorsSection = $('#functionality-flavors');
+    if (flavorsSection) {
+        $.get(flavorsSection.attr("data-id"), function (data) {
+            flavorsSection.html(data);
         });
     }
 }

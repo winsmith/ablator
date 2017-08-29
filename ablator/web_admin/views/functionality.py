@@ -30,6 +30,11 @@ class FunctionalityPartProgress(FunctionalityDetail):
 
 
 @method_decorator(login_required, name='dispatch')
+class FunctionalityPartFlavors(FunctionalityDetail):
+    template_name = 'core/functionality/_flavors.html'
+
+
+@method_decorator(login_required, name='dispatch')
 class FunctionalityCreate(CreateView):
     model = Functionality
     fields = ['name', 'rollout_strategy']

@@ -11,9 +11,17 @@
     form
     before.
 </p>
-<hr>
-
 {% else %}
+
+{% if functionality.rollout_strategy == 'pause_rollout' %}
+    <p class="lead text-center">
+        The rollout for this functionality is
+        <span class="badge badge-warning">paused</span>. All new users will get the
+        functionality disabled, but users who already had the functionality will get to
+        keep it.
+    </p>
+    <hr>
+{% endif %}
 
 <section>
     <div class="row">
