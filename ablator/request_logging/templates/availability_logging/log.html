@@ -1,7 +1,6 @@
 {% load humanize %}
 <div class="card-body">
-
-    {% for timestamp, log_collection in logs.items %}
+    {% if logs %}
     <table class="table table-hover table-sm" style="font-size: small;">
         <thead>
         <tr>
@@ -13,7 +12,7 @@
         </tr>
         </thead>
 
-        {% for log in log_collection %}
+        {% for log in logs %}
         <tr>
             <td>
                 <small>{{ log.client_user_id_short }}</small>
@@ -31,12 +30,12 @@
 
         {% endfor %}
     </table>
-    {% empty %}
+    {% else %}
     <div class="text-center text-muted">
         <h4 class="mt-2">No Logs yet</h4>
         <p>Once you get client requests for the <code>which</code> or <code>caniuse</code>
             functions, they will appear here.</p>
     </div>
-    {% endfor %}
+    {% endif %}
 
 </div>
