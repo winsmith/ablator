@@ -20,6 +20,11 @@ class FunctionalityDetail(TemplateView):
 
 
 @method_decorator(login_required, name='dispatch')
+class FunctionalityPartEnabledUsers(FunctionalityDetail):
+    template_name = 'core/functionality/_enabled_users.html'
+
+
+@method_decorator(login_required, name='dispatch')
 class FunctionalityCreate(CreateView):
     model = Functionality
     fields = ['name', 'rollout_strategy']
