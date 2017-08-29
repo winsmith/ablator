@@ -180,7 +180,9 @@
 
         <section>
             <h2>Logs</h2>
-            <div class="card" id="log-window" style="max-height: 30rem; overflow: scroll;"></div>
+            <div class="card" id="log-window" style="max-height: 30rem; overflow: scroll;" data-id="{% url 'logging-list' functionality.id %}">
+                <p class="text-center text-muted">loading...</p>
+            </div>
         </section>
 
         <hr>
@@ -282,12 +284,4 @@ availability = karman.which(username, functionality_id)
 {% endblock %}
 
 {% block scripts %}
-    <script>
-        $(document).ready(function () {
-            $("#log-window").html("<p>loading...</p>");
-            $.get("{% url 'logging-list' functionality.id %}", function (data) {
-                $("#log-window").html(data);
-            });
-        });
-    </script>
 {% endblock %}
