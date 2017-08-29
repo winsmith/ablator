@@ -10,6 +10,7 @@ ENV DEBUG=False
 ENV SECRET_KEY=not_so_secret_key
 ENV DJANGO_LOG_LEVEL=INFO
 ENV TIME_ZONE=UTC
+ENV DATABASE_URL=sqlite:////ablator.sqlite
 
 # Server
 ENV PORT=8000
