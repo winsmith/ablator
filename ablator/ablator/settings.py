@@ -28,7 +28,7 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ['*']
 
-HASH_SALT = 'omsn'
+HASH_SALT = os.environ.get('HASH_SALT', 'ablator-hash-salt')
 
 # Application definition
 
@@ -92,8 +92,8 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:////tmp/db.sqlite
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'ablator-chache',
+        'BACKEND': os.environ.get('CACHES_BACKEND', 'django.core.cache.backends.locmem.LocMemCache'),
+        'LOCATION': os.environ.get('CACHES_LOCATION', 'ablator-chache'),
     }
 }
 
