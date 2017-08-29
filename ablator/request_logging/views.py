@@ -15,6 +15,6 @@ class LogList(TemplateView):
         logs = {}
         for timestamp_key in timestamp_keys:
             if pk in timestamp_key:
-                logs[timestamp_key] = get_request_logs(timestamp_key)
+                logs[timestamp_key] = reversed(get_request_logs(timestamp_key))
         context['logs'] = logs
         return context
