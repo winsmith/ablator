@@ -1,8 +1,8 @@
 Ablator is a Functionality-Switching-Service that makes it easy for your app to roll out new features in a controlled way, and to perform reliable A/B testing.
 ===========
 
-.. raw:: html
-   <img src="ablator/web_admin/static/ablator/ablator_logo.png" width="200px"/>
+.. image:: ablator/web_admin/static/ablator/ablator_logo.png
+   :align: center
 
 It works like this:
 
