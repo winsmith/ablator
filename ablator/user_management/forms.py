@@ -10,7 +10,7 @@ class OrganizationField(forms.CharField):
     def validate(self, value):
         super().validate(value)
         try:
-            org = Organization.objects.get(slug=slugify(value))
+            Organization.objects.get(slug=slugify(value))
             raise ValidationError('An organization with this name already exists. If you are a '
                                   'member of this organization, ask your administrator to '
                                   'invite you.')
