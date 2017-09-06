@@ -1,6 +1,5 @@
 {% extends '_base.html' %}
-{% block body %}
-<div class="container">
+{% block content %}
     <h1>Ablator Login</h1><br>
     <form method="post">
         {% csrf_token %}
@@ -11,5 +10,4 @@
     <div class="login-help">
         <a href="{% url 'organization-register' %}">Register</a>
     </div>
-</div>
 {% endblock %}
