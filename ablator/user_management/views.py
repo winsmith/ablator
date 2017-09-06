@@ -19,8 +19,10 @@ class OrganizationRegisterView(FormView):
 
     def form_valid(self, form: OrganizationRegisterForm):
         new_ablator_user = form.create_organization()
-        message = 'Your new organization, {}, was created successful. User {} is the administrator ' \
-                  'of this organization.'
+        message = '<h4 class="alert-heading">Registration Complete!</h4>' \
+                  'Your new organization, <b>{}</b>, was created successful. User <b>{}</b> is the ' \
+                  'administrator of this organization. <hr>' \
+                  'You can now log in below with your new user credentials.'
         message = message.format(new_ablator_user.organization, new_ablator_user)
         messages.success(self.request, message)
         return super().form_valid(form)

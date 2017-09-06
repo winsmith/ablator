@@ -13,12 +13,11 @@
     <hr>
     {% buttons %}
 
-    <span style="float: right;">
-
+    <div class="text-right">
         <a class="btn btn-lg btn-outline-secondary"
-           href="{% url 'user-list' %}">Go Back</a>
+           href="{% url 'home' %}">Go Back</a>
         <button type="submit" class="btn btn-primary btn-lg">Save</button>
-        </span>
+    </div>
     {% endbuttons %}
 </form>
 {% endblock %}

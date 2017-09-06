@@ -35,6 +35,7 @@ class OrganizationRegisterForm(forms.Form):
             self.cleaned_data['user_email'],
             self.cleaned_data['user_password']
         )
+        new_user.is_staff = True
 
         new_ablator_user = AblatorUser.objects.create(
             user=new_user,
