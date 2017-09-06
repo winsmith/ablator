@@ -21,7 +21,7 @@ class OrganizationRegisterView(FormView):
         new_ablator_user = form.create_organization()
         message = 'Your new organization, {}, was created successful. User {} is the administrator ' \
                   'of this organization.'
-        message.format(new_ablator_user.organization, new_ablator_user)
+        message = message.format(new_ablator_user.organization, new_ablator_user)
         messages.success(self.request, message)
         return super().form_valid(form)
 
