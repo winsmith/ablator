@@ -26,7 +26,7 @@ class UsernameField(forms.CharField):
             raise ValidationError('A user with that name already exists. Please choose a different '
                                   'user name. If you are trying to log in, go to the home page and '
                                   'select "Login".')
-        except Organization.DoesNotExist:
+        except User.DoesNotExist:
             pass
 
 
