@@ -57,7 +57,7 @@ class WhichViewV2(APIView):
 
         [
             "masa.rover.atmospheric-regulator.power-save-mode",
-            "masa.rover.dehumidifier.dry-as-bone",
+            "masa.rover.dehumidifier.dry-as-bone"
         ]
     """
     def get(self, request, client_user_string, app_id):
@@ -71,4 +71,35 @@ class WhichViewV2(APIView):
             availability.flavor.__str__()
             for availability in availabilities
             if availability
+        ])
+
+
+class CanIUseViewV2(APIView):
+    """
+    Returns a list of enabled functionalities of the specified app.
+
+    Functionalities that are not enabled are not shown.
+
+    This is the preferred endpoint to use if you are using ablator only as an on/off switch for
+    features. To get to a list of flavors instead, use the `which` endpoint.
+
+    Returns a list of strings, which correspond to the fqdn strings of the enabled
+    functionalities. Example:
+
+        [
+            "masa.rover.atmospheric-regulator",
+            "masa.rover.space-heater"
+        ]
+    """
+    def get(self, request, client_user_string, app_id):
+        app = get_object_or_404(App, id=app_id)
+        client_user = ClientUser.user_from_object(client_user_string)
+        functionalities = [
+            functionality
+            for functionality in app.functionality_set.all()
+            if can_i_use(client_user, functionality)
+        ]
+        return Response([
+            functionality.__str__()
+            for functionality in functionalities
         ])
