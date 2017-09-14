@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.functionality import can_i_use, which
-from core.models import ClientUser, Functionality
+from core.models import ClientUser, Functionality, App
 
 
 class CanIUseSingleViewV1(APIView):
@@ -46,5 +46,29 @@ class WhichSingleViewV1(APIView):
 
 
 class WhichViewV2(APIView):
-    def get(self, request, app_id):
-        return None
+    """
+    Returns a list of all availabilities that are enabled for the given user
+    in the given app.
+
+    Availabilities that are not enabled are not listed.
+
+    Returns a list of strings, which correspond to the fqdn strings of the enabled flavors.
+    Example:
+
+        [
+            "masa.rover.atmospheric-regulator.power-save-mode",
+            "masa.rover.dehumidifier.dry-as-bone",
+        ]
+    """
+    def get(self, request, client_user_string, app_id):
+        app = get_object_or_404(App, id=app_id)
+        client_user = ClientUser.user_from_object(client_user_string)
+        availabilities = [
+            which(client_user, functionality)
+            for functionality in app.functionality_set.all()
+        ]
+        return Response([
+            availability.flavor.__str__()
+            for availability in availabilities
+            if availability
+        ])
