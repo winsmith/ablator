@@ -43,3 +43,8 @@ class WhichSingleViewV1(APIView):
         return Response({
             'functionality': availability.flavor.__str__() if availability else None,
         })
+
+
+class WhichViewV2(APIView):
+    def get(self, request, app_id):
+        return None
