@@ -6,7 +6,7 @@ from core.functionality import can_i_use, which
 from core.models import ClientUser, Functionality
 
 
-class CanIUseView(APIView):
+class CanIUseSingleViewV1(APIView):
     def get(self, request, client_user_string, functionality_group_id):
         """
         Is the specified user allowed to use the functionality?
@@ -25,7 +25,7 @@ class CanIUseView(APIView):
         return Response({'enabled': can_i_use(client_user, functionality_group)})
 
 
-class WhichView(APIView):
+class WhichSingleViewV1(APIView):
     def get(self, request, client_user_string, functionality_group_id):
         """
         Which Flavor of the given Functionality is enabled for the user, if any?
