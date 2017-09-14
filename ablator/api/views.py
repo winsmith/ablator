@@ -7,7 +7,7 @@ from core.models import ClientUser, Functionality
 
 
 class CanIUseSingleViewV1(APIView):
-    def get(self, request, client_user_string, functionality_group_id):
+    def get(self, request, client_user_string, functionality_id):
         """
         Is the specified user allowed to use the functionality?
 
@@ -20,13 +20,13 @@ class CanIUseSingleViewV1(APIView):
         See also the `which` endpoint to see if a user has a specific functionality group within a
         functionality
         """
-        functionality_group = get_object_or_404(Functionality, id=functionality_group_id)
+        functionality = get_object_or_404(Functionality, id=functionality_id)
         client_user = ClientUser.user_from_object(client_user_string)
-        return Response({'enabled': can_i_use(client_user, functionality_group)})
+        return Response({'enabled': can_i_use(client_user, functionality)})
 
 
 class WhichSingleViewV1(APIView):
-    def get(self, request, client_user_string, functionality_group_id):
+    def get(self, request, client_user_string, functionality_id):
         """
         Which Flavor of the given Functionality is enabled for the user, if any?
 
@@ -37,9 +37,9 @@ class WhichSingleViewV1(APIView):
         If the Functionality does not exist, this endpoint returns a 404 error.
 
         """
-        functionality_group = get_object_or_404(Functionality, id=functionality_group_id)
+        functionality = get_object_or_404(Functionality, id=functionality_id)
         client_user = ClientUser.user_from_object(client_user_string)
-        availability = which(client_user, functionality_group)
+        availability = which(client_user, functionality)
         return Response({
             'functionality': availability.flavor.__str__() if availability else None,
         })
