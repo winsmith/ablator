@@ -1,14 +1,16 @@
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 from django.urls.base import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.list import ListView
 
-from .forms import OrganizationRegisterForm, ChangePasswordForm
+from .forms import OrganizationRegisterForm
 from .models import AblatorUser, Organization
 
 
@@ -94,6 +96,20 @@ class UserDetail(DetailView):
 @method_decorator(login_required, name='dispatch')
 class UserPasswordUpdateView(FormView):
     template_name = 'user_management/change_password.html'
-    form_class = ChangePasswordForm
 
+    def get_form(self, form_class=None):
+        pk = self.kwargs['pk']
+        user = User.objects.get(pk=pk)
+        form = PasswordChangeForm(user=user, **self.get_form_kwargs())
+        return form
+
+    def form_valid(self, form):
+        user = form.save()
+        update_session_auth_hash(self.request, user)
+        message = 'Your password has been successfully changed.'
+        messages.success(self.request, message)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('profile-detail', kwargs={'pk': self.kwargs['pk']})
 
