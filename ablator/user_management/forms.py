@@ -56,3 +56,9 @@ class OrganizationRegisterForm(forms.Form):
         )
 
         return new_ablator_user
+
+
+class ChangePasswordForm(forms.Form):
+    user_password = forms.CharField(widget=forms.PasswordInput())
+
+
