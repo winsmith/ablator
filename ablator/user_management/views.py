@@ -8,7 +8,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.list import ListView
 
-from .forms import OrganizationRegisterForm
+from .forms import OrganizationRegisterForm, ChangePasswordForm
 from .models import AblatorUser, Organization
 
 
@@ -89,3 +89,11 @@ class UserDetail(DetailView):
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
+
+
+@method_decorator(login_required, name='dispatch')
+class UserPasswordUpdateView(FormView):
+    template_name = 'user_management/change_password.html'
+    form_class = ChangePasswordForm
+
+

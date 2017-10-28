@@ -59,6 +59,6 @@ class OrganizationRegisterForm(forms.Form):
 
 
 class ChangePasswordForm(forms.Form):
-    user_password = forms.CharField(widget=forms.PasswordInput())
+    user_password = forms.CharField(label='New Password', widget=forms.PasswordInput())
 
 
