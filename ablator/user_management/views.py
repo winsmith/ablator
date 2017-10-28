@@ -112,4 +112,3 @@ class UserPasswordUpdateView(FormView):
 
     def get_success_url(self):
         return reverse_lazy('profile-detail', kwargs={'pk': self.kwargs['pk']})
-

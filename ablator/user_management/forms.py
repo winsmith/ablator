@@ -56,4 +56,3 @@ class OrganizationRegisterForm(forms.Form):
         )
 
         return new_ablator_user
-
