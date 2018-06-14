@@ -24,14 +24,31 @@
                         identifier string. Please note that a reverse lookup of these is not possible.
                     </p>
                 </div>
-                <ul>
-                    {% for obj in object_list %}
-                        <li>{{ obj }}</li>
-                    {% empty %}
-                        <li>No Availablities yet.</li>
-                    {% endfor %}
-                </ul>
             </div>
         </div>
+    </section>
+    <section>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Flavor</th>
+                <th>Created At</th>
+                <th>Enabled</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in object_list %}
+                <tr>
+                <td>{{ obj.flavor }}</td>
+                <td>{{ obj.created_at }}</td>
+                <td>{{ obj.is_enabled }}</td>
+                <td>Edit &bullet; Delete</td>
+                </tr>
+            {% empty %}
+                <tr>No Availablities yet.</tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </section>
 {% endblock %}

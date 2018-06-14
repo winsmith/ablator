@@ -14,7 +14,7 @@ class AvailabilitySearch(FormView):
     form_class = SearchForm
 
     def form_valid(self, form):
-        user_key = form.cleaned_data['search_term']
+        user_key = form.cleaned_data["user_identity_string"]
         return HttpResponseRedirect(reverse_lazy('availability-list', kwargs={'user': user_key}))
 
 
