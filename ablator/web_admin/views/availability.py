@@ -25,3 +25,8 @@ class AvailabilityList(ListView):
     def get_queryset(self):
         client_user = ClientUser.user_from_object(self.kwargs['user'])
         return Availability.objects.filter(user=client_user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_identifier'] = self.kwargs['user']
+        return context

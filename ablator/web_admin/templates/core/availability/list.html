@@ -1,8 +1,37 @@
-<h1>Articles</h1>
-<ul>
-{% for obj in object_list %}
-    <li>{{ obj }}</li>
-{% empty %}
-    <li>No Availablities yet.</li>
-{% endfor %}
-</ul>
+{% extends '_base.html' %}
+{% load humanize %}
+{% block availability_nav_active %}active{% endblock %}
+{% block back %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'availability-index' %}">kas</a>
+    </li>
+    <li class="breadcrumb-item active">omsn</li>
+
+{% endblock %}
+
+
+{% block content %}
+    <section>
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1>{{ user_identifier }}</h1>
+                    <p class="lead">
+                        These are the availabilities for the user identifier string <kbd>{{ user_identifier }}</kbd>.
+                    </p>
+                    <p>
+                        Ablator can retrieve these availabilities because you provided it with the unhashed user
+                        identifier string. Please note that a reverse lookup of these is not possible.
+                    </p>
+                </div>
+                <ul>
+                    {% for obj in object_list %}
+                        <li>{{ obj }}</li>
+                    {% empty %}
+                        <li>No Availablities yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}
