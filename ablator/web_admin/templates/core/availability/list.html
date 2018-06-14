@@ -1,0 +1,8 @@
+<h1>Articles</h1>
+<ul>
+{% for obj in object_list %}
+    <li>{{ obj }}</li>
+{% empty %}
+    <li>No Availablities yet.</li>
+{% endfor %}
+</ul>

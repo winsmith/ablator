@@ -1,0 +1,25 @@
+{% extends '_form_container.html' %}
+{% load bootstrap4 %}
+{% block availability_nav_active  %}active{% endblock %}
+{% block form %}
+    <h1>Availabilities</h1>
+    <hr>
+    <form action="." method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <hr>
+        {% buttons %}
+            {% if app.id %}
+                <a class="btn btn-sm btn-outline-danger"
+                   href="{% url 'app-delete' app.id %}">Delete {{ app.name }}</a>
+            {% endif %}
+
+            <span style="float: right;">
+
+        <a class="btn btn-lg btn-outline-secondary"
+           href="{% if app.id %}{% url 'app-detail' app.id %}{% else %}{% url 'home' %}{% endif %}">Go Back</a>
+        <button type="submit" class="btn btn-primary btn-lg">Save</button>
+        </span>
+        {% endbuttons %}
+    </form>
+{% endblock %}
