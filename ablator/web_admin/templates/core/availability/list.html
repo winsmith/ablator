@@ -40,13 +40,15 @@
             <tbody>
             {% for obj in object_list %}
                 <tr>
-                <td>{{ obj.flavor }}</td>
-                <td>{{ obj.created_at }}</td>
-                <td>{{ obj.is_enabled }}</td>
-                <td>Edit &bullet; Delete</td>
+                    <td>{{ obj.flavor }}</td>
+                    <td>{{ obj.created_at }}</td>
+                    <td>{{ obj.is_enabled }}</td>
+                    <td>Edit &bullet; Delete</td>
                 </tr>
             {% empty %}
-                <tr>No Availablities yet.</tr>
+                <tr>
+                    <td>No Availablities for this user identifier.</td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
