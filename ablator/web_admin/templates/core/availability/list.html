@@ -17,11 +17,14 @@
                 <div class="col-md-8">
                     <h1>{{ user_identifier }}</h1>
                     <p class="lead">
-                        These are the availabilities for the user identifier string <kbd>{{ user_identifier }}</kbd>.
+                        These are the availabilities the user identifier string <kbd>{{ user_identifier }}</kbd> has for
+                        your organization, <em>{{ request.user.ablatoruser.organization }}</em>.
                     </p>
                     <p>
                         Ablator can retrieve these availabilities because you provided it with the unhashed user
-                        identifier string. Please note that a reverse lookup of these is not possible.
+                        identifier string. Please note that a reverse lookup of these is not possible. The user might
+                        have other availabilities for other organizations that are not displayed to members of your
+                        organization.
                     </p>
                 </div>
             </div>
