@@ -38,7 +38,7 @@ class AvailabilityList(ListView):
 @method_decorator(login_required, name='dispatch')
 class AvailabilityUpdate(UpdateView):
     template_name = 'core/availability/update.html'
-    fields = ['flavor', 'is_enabled',]
+    fields = ['flavor', 'is_enabled', ]
 
     def get_success_url(self):
         return reverse_lazy('availability-list', kwargs={'user': self.kwargs['user']})
