@@ -45,6 +45,8 @@ urlpatterns = [
     # User Profiling
     url(r'availability/$', availability.AvailabilitySearch.as_view(), name='availability-index'),
     url(r'availability/(?P<user>[^/]+)/$', availability.AvailabilityList.as_view(), name='availability-list'),
+    url(r'availability/(?P<user>[^/]+)/(?P<pk>[^/]+)/update/$', availability.AvailabilityUpdate.as_view(), name='availability-update'),
+    url(r'availability/(?P<user>[^/]+)/(?P<pk>[^/]+)/delete/$', availability.AvailabilityDelete.as_view(), name='availability-delete'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

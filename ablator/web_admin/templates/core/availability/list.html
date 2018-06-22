@@ -46,7 +46,7 @@
                     <td>{{ obj.flavor }}</td>
                     <td>{{ obj.created_at }}</td>
                     <td>{{ obj.is_enabled }}</td>
-                    <td>Edit &bullet; Delete</td>
+                    <td><a href="{% url 'availability-update' user_identifier obj.pk %}">Edit</a></td>
                 </tr>
             {% empty %}
                 <tr>

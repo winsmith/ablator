@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, UpdateView, DeleteView
 
 from core.models import Availability, ClientUser
 from web_admin.forms.AvailabilitySearchForm import SearchForm
@@ -33,3 +33,38 @@ class AvailabilityList(ListView):
         context = super().get_context_data(**kwargs)
         context['user_identifier'] = self.kwargs['user']
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class AvailabilityUpdate(UpdateView):
+    template_name = 'core/availability/update.html'
+    fields = ['flavor', 'is_enabled',]
+
+    def get_success_url(self):
+        return reverse_lazy('availability-list', kwargs={'user': self.kwargs['user']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_identifier'] = self.kwargs['user']
+        return context
+
+    def get_queryset(self):
+        return Availability.objects.filter(
+            flavor__functionality__app__organization=self.request.user.ablatoruser.organization)
+
+
+@method_decorator(login_required, name='dispatch')
+class AvailabilityDelete(DeleteView):
+    template_name = 'core/availability/confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('availability-list', kwargs={'user': self.kwargs['user']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_identifier'] = self.kwargs['user']
+        return context
+
+    def get_queryset(self):
+        return Availability.objects.filter(
+            flavor__functionality__app__organization=self.request.user.ablatoruser.organization)
