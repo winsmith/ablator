@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 from core.models import ClientUser
@@ -10,6 +11,13 @@ class Tag(models.Model):
 
     Tags can be used to categorize and group ClientUser objects into sub groups.
     """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.SlugField()
-    user = models.ManyToManyField(ClientUser)
+    users = models.ManyToManyField(ClientUser)
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('name', 'organization')
+
+    def __str__(self):
+        return 'Tag "{}" in Organization "{}"'.format(self.name, self.organization)
