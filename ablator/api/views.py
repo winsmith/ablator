@@ -1,6 +1,6 @@
 from django.utils.text import slugify
-from rest_framework.generics import get_object_or_404, ListCreateAPIView, ListAPIView, DestroyAPIView
-from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly, AllowAny
+from rest_framework.generics import get_object_or_404, ListAPIView, DestroyAPIView
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -8,7 +8,6 @@ from core.functionality import can_i_use, which
 from core.models import ClientUser, Functionality, App
 from tagging.models import Tag
 from tagging.serializers import TagSerializer
-from user_management.models import Organization
 
 
 class CanIUseSingleViewV1(APIView):
