@@ -19,6 +19,7 @@ from ..models import Flavor, Functionality, ClientUser, Availability
 
 
 class WhichContext:
+    """Context class to pass around metadata during execution of the 'which' pipeline"""
     client_user: ClientUser
     functionality: Functionality
     availability: Availability
