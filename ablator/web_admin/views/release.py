@@ -3,12 +3,12 @@ from django.urls.base import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from core.models import Release, Functionality
+from core.models import RolloutStrategy, Functionality
 
 
 @method_decorator(login_required, name='dispatch')
 class ReleaseCreate(CreateView):
-    model = Release
+    model = RolloutStrategy
     fields = ['start_at', 'max_enabled_users']
 
     def form_valid(self, form):
@@ -20,11 +20,11 @@ class ReleaseCreate(CreateView):
 
 @method_decorator(login_required, name='dispatch')
 class ReleaseUpdate(UpdateView):
-    model = Release
+    model = RolloutStrategy
     fields = ['start_at', 'max_enabled_users']
 
 
 @method_decorator(login_required, name='dispatch')
 class ReleaseDelete(DeleteView):
-    model = Release
+    model = RolloutStrategy
     success_url = reverse_lazy('home')

@@ -91,7 +91,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for release in functionality.release_set.all %}
+        {% for release in functionality.rolloutstrategy_set.all %}
         <tr {% if release.is_current %}class="table-primary"
             {% elif release.is_past %}class="text-muted" {% endif %}>
             <td>

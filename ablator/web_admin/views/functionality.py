@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib import messages
 
-from core.models import Functionality, App, Flavor, Release
+from core.models import Functionality, App, Flavor, RolloutStrategy
 
 
 @method_decorator(login_required, name='dispatch')
@@ -49,7 +49,7 @@ class FunctionalityCreate(CreateView):
 
         # Create Example Flavor and Release
         on_flavor = Flavor.objects.create(name='On', slug='on', functionality=form.instance)
-        Release.objects.create(functionality=form.instance)
+        RolloutStrategy.objects.create(functionality=form.instance)
         messages.info(self.request, "Along with your app, a Flavor named {} was automatically "
                                     "created for you. To start enabling client requests, edit "
                                     "a release below.".format(on_flavor.name))

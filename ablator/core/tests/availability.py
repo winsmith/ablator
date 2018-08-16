@@ -5,7 +5,7 @@ from core.functionality.availability import check_for_existing_enabled_availabil
     get_availability, \
     enable_availability_by_user_count, _availability_or_none, \
     assert_existence_of_flavors
-from core.models import Availability, ClientUser, Functionality, App, Flavor, Release
+from core.models import Availability, ClientUser, Functionality, App, Flavor, RolloutStrategy
 from user_management.models import Organization
 
 
@@ -72,7 +72,7 @@ class EnableExistingAvailability(TestCase):
         flavor.save()
         self.availability = Availability(flavor=flavor, user=self.user)
         self.availability.save()
-        self.release = Release(functionality=self.functionality, max_enabled_users=10)
+        self.release = RolloutStrategy(functionality=self.functionality, max_enabled_users=10)
         self.release.save()
 
     def test_already_enabled(self):

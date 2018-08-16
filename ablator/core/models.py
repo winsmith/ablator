@@ -113,8 +113,8 @@ class Functionality(models.Model):
         ).count()
 
     @property
-    def current_release(self) -> 'Release':
-        return self.release_set.filter(start_at__lte=timezone.now()).order_by('-start_at').first()
+    def current_release(self) -> 'RolloutStrategy':
+        return self.rolloutstrategy_set.filter(start_at__lte=timezone.now()).order_by('-start_at').first()
 
     def get_absolute_url(self):
         return reverse_lazy('functionality-detail', kwargs={'pk': self.id})
@@ -168,9 +168,9 @@ class Flavor(models.Model):
         return reverse_lazy('functionality-detail', kwargs={'pk': self.functionality.id})
 
 
-class Release(models.Model):
+class RolloutStrategy(models.Model):
     """
-    A point in time when a certain number of Availabilities should be switched on.
+    A description of how a feature should be rolled out.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     functionality = models.ForeignKey(Functionality, on_delete=models.CASCADE)

@@ -3,7 +3,7 @@ from django.test import TestCase
 from core.functionality import WhichContext, NoAvailability
 from core.functionality.rollout_strategies import check_roll_out_recall, \
     check_roll_out_enable_globally, assert_existence_of_release
-from core.models import Functionality, App, Release
+from core.models import Functionality, App, RolloutStrategy
 from user_management.models import Organization
 
 
@@ -51,7 +51,7 @@ class CheckExistenceOfRelease(TestCase):
         self.functionality.save()
 
     def test_with_release_present(self):
-        self.release = Release(functionality=self.functionality)
+        self.release = RolloutStrategy(functionality=self.functionality)
         self.release.save()
         context = WhichContext()
         context.functionality = self.functionality
