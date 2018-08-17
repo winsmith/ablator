@@ -7,7 +7,7 @@ from core.models import RolloutStrategy, Functionality
 
 
 @method_decorator(login_required, name='dispatch')
-class ReleaseCreate(CreateView):
+class RolloutStrategyCreate(CreateView):
     model = RolloutStrategy
     fields = ['priority', 'start_at', 'possible_flavors', 'max_enabled_users', 'tag', 'strategy']
 
@@ -15,16 +15,16 @@ class ReleaseCreate(CreateView):
         functionality_id = self.kwargs.get('pk')
         functionality = Functionality.objects.get(id=functionality_id)
         form.instance.functionality = functionality
-        return super(ReleaseCreate, self).form_valid(form)
+        return super(RolloutStrategyCreate, self).form_valid(form)
 
 
 @method_decorator(login_required, name='dispatch')
-class ReleaseUpdate(UpdateView):
+class RolloutStrategyUpdate(UpdateView):
     model = RolloutStrategy
     fields = ['priority', 'start_at', 'possible_flavors', 'max_enabled_users', 'tag', 'strategy']
 
 
 @method_decorator(login_required, name='dispatch')
-class ReleaseDelete(DeleteView):
+class RolloutStrategyDelete(DeleteView):
     model = RolloutStrategy
     success_url = reverse_lazy('home')

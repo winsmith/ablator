@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from .views import app, functionality, index, flavor, release, availability
+from .views import app, functionality, index, flavor, rolloutstrategy, availability
 from django.contrib.auth import views as auth_views
 
 # flake8: noqa: E501
@@ -34,9 +34,9 @@ urlpatterns = [
     url(r'flavor/(?P<pk>[^/]+)/delete/$', flavor.FlavorDelete.as_view(), name='flavor-delete'),
 
     # Rollout Strategy
-    url(r'functionality/(?P<pk>[^/]+)/add_release/$', release.ReleaseCreate.as_view(), name='release-create'),
-    url(r'release/(?P<pk>[^/]+)/update/$', release.ReleaseUpdate.as_view(), name='release-update'),
-    url(r'release/(?P<pk>[^/]+)/delete/$', release.ReleaseDelete.as_view(), name='release-delete'),
+    url(r'functionality/(?P<pk>[^/]+)/add_rolloutstrategy/$', rolloutstrategy.RolloutStrategyCreate.as_view(), name='rollout-strategy-create'),
+    url(r'rolloutstrategy/(?P<pk>[^/]+)/update/$', rolloutstrategy.RolloutStrategyUpdate.as_view(), name='rollout-strategy-update'),
+    url(r'rolloutstrategy/(?P<pk>[^/]+)/delete/$', rolloutstrategy.RolloutStrategyDelete.as_view(), name='rollout-strategy-delete'),
 
     # Home Page
     url(r'^$', index.HomePageView.as_view(), name='home'),

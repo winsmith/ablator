@@ -108,7 +108,7 @@
                 </td>
                 <td class="align-middle">
                     <a class="btn btn-sm btn-outline-secondary btn-block"
-                       href="{% url 'release-update' rollout_strategy.id %}">Edit</a>
+                       href="{% url 'rollout-strategy-update' rollout_strategy.id %}">Edit</a>
                 </td>
             </tr>
         {% empty %}
@@ -124,7 +124,7 @@
         {% endfor %}
 
         <tr>
-            <td colspan="4"><a href="{% url 'release-create' functionality.id %}"
+            <td colspan="4"><a href="{% url 'rollout-strategy-create' functionality.id %}"
                                class="btn btn-outline-secondary">Add new Rollout Strategy</a></td>
         </tr>
         </tbody>

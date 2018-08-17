@@ -17,7 +17,7 @@
         {% buttons %}
             {% if object.id %}
                 <a class="btn btn-sm btn-outline-danger"
-                   href="{% url 'release-delete' object.id %}">Delete {{ object.name }}</a>
+                   href="{% url 'rollout-strategy-delete' object.id %}">Delete {{ object.name }}</a>
             {% endif %}
 
             <span style="float: right;">
