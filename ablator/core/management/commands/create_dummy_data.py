@@ -62,9 +62,10 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.SUCCESS(' + Flavor {}'.format(flavor.name)))
                 num_availabilities = random.randrange(13, 15)
                 for _ in range(num_availabilities):
-                    which(
-                        client_user=ClientUser.user_from_object(random_user_name()),
-                        functionality=functionality
-                    )
+                    pass
+                    # which(
+                    #    client_user=ClientUser.user_from_object(random_user_name()),
+                    #    functionality=functionality
+                    #)
                 self.stdout.write(self.style.SUCCESS(' + {} availabilities'.format(num_availabilities)))
         self.stdout.write(self.style.SUCCESS('Done :)'))

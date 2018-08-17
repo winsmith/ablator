@@ -98,9 +98,10 @@ class Functionality(models.Model):
             is_enabled=True
         ).count()
 
-    @property
-    def current_release(self) -> 'RolloutStrategy':
-        return self.rolloutstrategy_set.filter(start_at__lte=timezone.now()).order_by('-start_at').first()
+    # TODO: Update to take tags into account
+    #@property
+    #def current_release(self) -> 'RolloutStrategy':
+    #    return self.rolloutstrategy_set.filter(start_at__lte=timezone.now()).order_by('-start_at').first()
 
     def get_absolute_url(self):
         return reverse_lazy('functionality-detail', kwargs={'pk': self.id})
@@ -167,8 +168,8 @@ class RolloutStrategy(models.Model):
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     functionality = models.ForeignKey(Functionality, on_delete=models.CASCADE)
-    possible_flavors = models.ManyToManyField(Flavor)
-    tag = models.ForeignKey('tagging.Tag', on_delete=models.CASCADE, null=True)
+    possible_flavors = models.ManyToManyField(Flavor, blank=False)
+    tag = models.ForeignKey('tagging.Tag', on_delete=models.CASCADE, null=True, blank=True)
 
     start_at = models.DateTimeField(default=timezone.now)
     max_enabled_users = models.IntegerField(default=0)
@@ -193,14 +194,6 @@ class RolloutStrategy(models.Model):
     class Meta:
         ordering = ['start_at']
         unique_together = ('tag', 'functionality')
-
-    @property
-    def is_past(self) -> bool:
-        return self.start_at < timezone.now() and self.functionality.current_release != self
-
-    @property
-    def is_current(self) -> bool:
-        return self.functionality.current_release == self
 
     def get_absolute_url(self):
         return reverse_lazy('functionality-detail', kwargs={'pk': self.functionality.id})

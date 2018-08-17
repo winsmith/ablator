@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'flavor/(?P<pk>[^/]+)/update/$', flavor.FlavorUpdate.as_view(), name='flavor-update'),
     url(r'flavor/(?P<pk>[^/]+)/delete/$', flavor.FlavorDelete.as_view(), name='flavor-delete'),
 
-    # Release
+    # Rollout Strategy
     url(r'functionality/(?P<pk>[^/]+)/add_release/$', release.ReleaseCreate.as_view(), name='release-create'),
     url(r'release/(?P<pk>[^/]+)/update/$', release.ReleaseUpdate.as_view(), name='release-update'),
     url(r'release/(?P<pk>[^/]+)/delete/$', release.ReleaseDelete.as_view(), name='release-delete'),

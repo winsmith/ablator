@@ -9,7 +9,7 @@ from core.models import RolloutStrategy, Functionality
 @method_decorator(login_required, name='dispatch')
 class ReleaseCreate(CreateView):
     model = RolloutStrategy
-    fields = ['start_at', 'max_enabled_users']
+    fields = ['priority', 'start_at', 'possible_flavors', 'max_enabled_users', 'tag', 'strategy']
 
     def form_valid(self, form):
         functionality_id = self.kwargs.get('pk')
@@ -21,7 +21,7 @@ class ReleaseCreate(CreateView):
 @method_decorator(login_required, name='dispatch')
 class ReleaseUpdate(UpdateView):
     model = RolloutStrategy
-    fields = ['start_at', 'max_enabled_users']
+    fields = ['priority', 'start_at', 'possible_flavors', 'max_enabled_users', 'tag', 'strategy']
 
 
 @method_decorator(login_required, name='dispatch')
