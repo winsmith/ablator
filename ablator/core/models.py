@@ -3,6 +3,8 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls.base import reverse_lazy
 from django.utils import timezone
 
@@ -73,22 +75,6 @@ class Functionality(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     app = models.ForeignKey(App, on_delete=models.CASCADE)
 
-    RECALL_FUNCTIONALITY = 'recall'
-    PAUSE_ROLLOUT = 'pause_rollout'
-    DEFINED_BY_RELEASES = 'defined_by_releases'
-    ENABLE_GLOBALLY = 'enable_globally'
-    NEW_USER_BEHAVIOUR_CHOICES = (
-        (RECALL_FUNCTIONALITY, 'Recall'),
-        (PAUSE_ROLLOUT, 'Roll Out Paused'),
-        (DEFINED_BY_RELEASES, 'Release-Driven'),
-        (ENABLE_GLOBALLY, 'Enabled Globally')
-    )
-    rollout_strategy = models.CharField(
-        max_length=50,
-        choices=NEW_USER_BEHAVIOUR_CHOICES,
-        default=DEFINED_BY_RELEASES
-    )
-
     def __str__(self):
         return '{}.{}'.format(self.app, self.slug)
 
@@ -118,6 +104,13 @@ class Functionality(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('functionality-detail', kwargs={'pk': self.id})
+
+    def get_default_tag(self):
+        from tagging.models import Tag
+        return Tag.objects.get_or_create(
+            name='Default',
+            organization=self.app.organization
+        )[0]
 
 
 class Flavor(models.Model):
@@ -170,15 +163,35 @@ class Flavor(models.Model):
 
 class RolloutStrategy(models.Model):
     """
-    A description of how a feature should be rolled out.
+    A description of how a feature should be rolled out, depending on a tag.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     functionality = models.ForeignKey(Functionality, on_delete=models.CASCADE)
+    possible_flavors = models.ManyToManyField(Flavor)
+    tag = models.ForeignKey('tagging.Tag', on_delete=models.CASCADE, null=True)
+
     start_at = models.DateTimeField(default=timezone.now)
     max_enabled_users = models.IntegerField(default=0)
 
+    RECALL_FUNCTIONALITY = 'recall'
+    PAUSE_ROLLOUT = 'pause_rollout'
+    DEFINED_BY_RELEASES = 'defined_by_releases'
+    ENABLE_GLOBALLY = 'enable_globally'
+    STRATEGY_CHOICES = (
+        (RECALL_FUNCTIONALITY, 'Recall'),
+        (PAUSE_ROLLOUT, 'Roll Out Paused'),
+        (DEFINED_BY_RELEASES, 'Release-Driven'),
+        (ENABLE_GLOBALLY, 'Enabled Globally')
+    )
+    strategy = models.CharField(
+        max_length=50,
+        choices=STRATEGY_CHOICES,
+        default=DEFINED_BY_RELEASES
+    )
+
     class Meta:
         ordering = ['start_at']
+        unique_together = ('tag', 'functionality')
 
     @property
     def is_past(self) -> bool:
