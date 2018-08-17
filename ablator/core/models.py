@@ -172,6 +172,7 @@ class RolloutStrategy(models.Model):
 
     start_at = models.DateTimeField(default=timezone.now)
     max_enabled_users = models.IntegerField(default=0)
+    priority = models.PositiveSmallIntegerField(default=0)
 
     RECALL_FUNCTIONALITY = 'recall'
     PAUSE_ROLLOUT = 'pause_rollout'
