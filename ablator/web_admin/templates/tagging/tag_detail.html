@@ -3,6 +3,9 @@
 {% block tags_nav_active %}active{% endblock %}
 {% block content %}
     <h1>{{ object.name }}</h1>
+
+    <p>{{ object.users.count }} users</p>
+
     <ul>
     <li>
         <a href="{% url 'tags-update' object.pk %}">Edit</a>
