@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from .views import app, functionality, index, flavor, rolloutstrategy, availability
+from .views import app, functionality, index, flavor, rolloutstrategy, availability, tagging
 from django.contrib.auth import views as auth_views
 
 # flake8: noqa: E501
@@ -47,6 +47,13 @@ urlpatterns = [
     url(r'availability/(?P<user>[^/]+)/$', availability.AvailabilityList.as_view(), name='availability-list'),
     url(r'availability/(?P<user>[^/]+)/(?P<pk>[^/]+)/update/$', availability.AvailabilityUpdate.as_view(), name='availability-update'),
     url(r'availability/(?P<user>[^/]+)/(?P<pk>[^/]+)/delete/$', availability.AvailabilityDelete.as_view(), name='availability-delete'),
+
+    # Tags
+    url(r'tags/$', tagging.TagsListView.as_view(), name='tags-list'),
+    url(r'tags/create/$', tagging.TagCreateView.as_view(), name='tags-create'),
+    url(r'tags/(?P<pk>[^/]+)/$', tagging.TagDetailView.as_view(), name='tags-detail'),
+    url(r'tags/(?P<pk>[^/]+)/update/$', tagging.TagUpdateView.as_view(), name='tags-update'),
+    url(r'tags/(?P<pk>[^/]+)/delete/$', tagging.TagDeleteView.as_view(), name='tags-delete'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

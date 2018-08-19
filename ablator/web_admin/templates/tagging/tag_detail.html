@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% load humanize %}
+{% block tags_nav_active %}active{% endblock %}
+{% block content %}
+    <h1>{{ object.name }}</h1>
+    <ul>
+    <li>
+        <a href="{% url 'tags-update' object.pk %}">Edit</a>
+    </li>
+    <li>
+        <a href="{% url 'tags-delete' object.pk %}">Delete</a>
+    </li>
+    </ul>
+{% endblock %}

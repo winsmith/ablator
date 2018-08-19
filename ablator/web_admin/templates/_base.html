@@ -55,7 +55,7 @@
                         class="sr-only">(current)</span></a>
             </li>
             {% if request.user.is_authenticated %}
-            <li class="nav-item"><a href="#" class="nav-link">Tags</a></li>
+            <li class="nav-item {% block tags_nav_active %}{% endblock %}"><a href="{% url 'tags-list' %}" class="nav-link">Tags</a></li>
             <li class="nav-item {% block availability_nav_active %}{% endblock %}">
                 <a href="{% url 'availability-index' %}" class="nav-link">Client Users</a>
             </li>
