@@ -49,7 +49,7 @@ def enable_availability_by_user_count(context: 'WhichContext') -> Optional['Avai
 
 
 def assert_existence_of_flavors(context: 'WhichContext'):
-    context.available_flavors = context.functionality.flavor_set.all()
+    context.available_flavors = context.rollout_strategy.possible_flavors
     if context.available_flavors:
         return None
     from core.functionality import NoAvailability
