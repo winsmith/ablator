@@ -81,7 +81,7 @@
 <section>
     <h2>Rollout Strategies</h2>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Start Date</th>
@@ -100,8 +100,12 @@
                     <strong>{{ rollout_strategy.start_at }}</strong><br>
                     {{ rollout_strategy.start_at|naturaltime }}
                 </td>
-                <td>{{ rollout_strategy.tag }}</td>
-                <td>{% for flavor in rollout_strategy.possible_flavors.all %}{{ flavor.name }}, {% endfor %}</td>
+                <td>{% if rollout_strategy.tag %}#{{ rollout_strategy.tag.name }}{% endif %}</td>
+                <td>
+                    {% for flavor in rollout_strategy.possible_flavors.all %}
+                        <span class="badge" style="background-color: #{{ flavor.color }}">{{ flavor.name }}</span>
+                    {% endfor %}
+                </td>
                 <td>{{ rollout_strategy.strategy }}</td>
                 <td class="text-right">
                     <span class="display-4">{{ rollout_strategy.max_enabled_users|intword|intcomma }}</span>

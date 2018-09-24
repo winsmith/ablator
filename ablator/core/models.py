@@ -2,6 +2,7 @@ import hashlib
 import uuid
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -197,6 +198,18 @@ class RolloutStrategy(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('functionality-detail', kwargs={'pk': self.functionality.id})
+
+    def clean(self):
+        super().clean()
+
+        # make sure only the functionality's flavors are selected
+        for flavor in self.possible_flavors.all():
+            if flavor.functionality != self.functionality:
+                raise ValidationError({'possible_flavors': "Only Related Flavors can be selected"})
+
+        # make sure only the organization's tags are selected
+        if self.tag and self.functionality and self.tag.organization != self.functionality.app.organization:
+            raise ValidationError({'tag': "Only your organization's tags can be selected"})
 
 
 class Availability(models.Model):
