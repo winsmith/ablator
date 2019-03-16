@@ -77,8 +77,8 @@ def which(client_user: ClientUser, functionality: Functionality) -> Optional[Ava
         assert_roll_out_is_not_paused,
         assert_existence_of_flavors,
         get_enabled_count,
-        #create_new_availability_with_random_flavor,
-        #enable_availability_by_user_count,
+        create_new_availability_with_random_flavor,
+        enable_availability_by_user_count,
     ]
 
     # Go through each function in the pipeline. If it yields an Availability, we're done
