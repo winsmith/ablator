@@ -7,6 +7,7 @@ from django.utils.text import slugify
 
 from core.models import App, Functionality, Flavor, RolloutStrategy, ClientUser
 from core.functionality import which
+from tagging.models import Tag
 from user_management.models import Organization, AblatorUser
 
 app_names = [
@@ -35,6 +36,12 @@ class Command(BaseCommand):
         organization.save()
         self.stdout.write(self.style.SUCCESS('### Created Organization {} ###'.format(organization.name)))
 
+        available_tags = ["opensource", "paid", "unpaid", "betarelease"]
+        for tag_name in available_tags:
+            tag = Tag(name=tag_name, organization=organization)
+            tag.save()
+            self.stdout.write(self.style.SUCCESS('Created Tag {}'.format(tag.name)))
+
         try:
             first_user = User.objects.all()[0]
             ablator_user = AblatorUser(user=first_user, organization=organization)
@@ -62,10 +69,9 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.SUCCESS(' + Flavor {}'.format(flavor.name)))
                 num_availabilities = random.randrange(13, 15)
                 for _ in range(num_availabilities):
-                    pass
-                    # which(
-                    #    client_user=ClientUser.user_from_object(random_user_name()),
-                    #    functionality=functionality
-                    #)
+                    which(
+                        client_user=ClientUser.user_from_object(random_user_name()),
+                        functionality=functionality
+                    )
                 self.stdout.write(self.style.SUCCESS(' + {} availabilities'.format(num_availabilities)))
         self.stdout.write(self.style.SUCCESS('Done :)'))
