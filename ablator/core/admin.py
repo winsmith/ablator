@@ -27,7 +27,7 @@ class ReleaseInline(admin.TabularInline):
 
 @admin.register(Functionality)
 class FunctionalityAdmin(admin.ModelAdmin):
-    list_display = ('slug', 'name', 'app', 'created_at', 'rollout_strategy')
+    list_display = ('slug', 'name', 'app', 'created_at')
     inlines = [FlavorInline, ReleaseInline]
     prepopulated_fields = {"slug": ("name",)}
     readonly_fields = ('id',)

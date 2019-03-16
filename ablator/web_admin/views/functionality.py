@@ -60,7 +60,7 @@ class FunctionalityCreate(CreateView):
 @method_decorator(login_required, name='dispatch')
 class FunctionalityUpdate(UpdateView):
     model = Functionality
-    fields = ['name', 'slug', 'rollout_strategy']
+    fields = ['name', 'slug']
 
 
 @method_decorator(login_required, name='dispatch')
