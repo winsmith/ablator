@@ -4,8 +4,6 @@ import uuid
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.urls.base import reverse_lazy
 from django.utils import timezone
 
@@ -98,11 +96,6 @@ class Functionality(models.Model):
             flavor__functionality=self,
             is_enabled=True
         ).count()
-
-    # TODO: Update to take tags into account
-    #@property
-    #def current_release(self) -> 'RolloutStrategy':
-    #    return self.rolloutstrategy_set.filter(start_at__lte=timezone.now()).order_by('-start_at').first()
 
     def get_absolute_url(self):
         return reverse_lazy('functionality-detail', kwargs={'pk': self.id})

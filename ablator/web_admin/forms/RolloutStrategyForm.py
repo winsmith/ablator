@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import ModelChoiceField
 
 from core.models import RolloutStrategy, Functionality, Flavor
 from tagging.models import Tag

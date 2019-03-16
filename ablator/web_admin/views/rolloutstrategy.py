@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.urls.base import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django import forms
 
 from core.models import RolloutStrategy, Functionality
 from web_admin.forms.RolloutStrategyForm import RolloutStrategyForm

@@ -1,7 +1,9 @@
 from django.utils import timezone
 from typing import Optional
 
-from core.models import Functionality, Availability, RolloutStrategy
+from core.models import Availability, RolloutStrategy
+
+# noqa: F821
 
 
 def get_rollout_strategy(context: 'WhichContext'):

@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
@@ -36,7 +36,7 @@ class TagDetailView(DetailView):
 @method_decorator(login_required, name='dispatch')
 class TagUpdateView(UpdateView):
     model = Tag
-    fields = ['name',]
+    fields = ['name', ]
 
     def get_queryset(self):
         return self.request.user.ablatoruser.organization.tag_set.all()

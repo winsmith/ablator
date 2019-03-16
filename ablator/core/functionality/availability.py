@@ -3,6 +3,8 @@ from typing import Optional
 
 from core.models import Availability, RolloutStrategy
 
+# noqa: F821
+
 
 def _availability_or_none(availability):
     if availability:

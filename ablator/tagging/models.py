@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 
 from core.models import ClientUser
 from user_management.models import Organization
