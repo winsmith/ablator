@@ -1,9 +1,10 @@
 from django.utils import timezone
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from core.models import Availability, RolloutStrategy
 
-# noqa: F821
+if TYPE_CHECKING:
+    from core.functionality import WhichContext
 
 
 def get_rollout_strategy(context: 'WhichContext'):

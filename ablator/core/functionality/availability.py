@@ -1,9 +1,10 @@
 import random
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from core.models import Availability, RolloutStrategy
 
-# noqa: F821
+if TYPE_CHECKING:
+    from core.functionality import WhichContext
 
 
 def _availability_or_none(availability):
