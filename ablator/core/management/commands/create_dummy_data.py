@@ -71,7 +71,7 @@ class Command(BaseCommand):
                 for _ in range(num_availabilities):
                     which(
                         client_user=ClientUser.user_from_object(random_user_name(),
-                        organization=functionality.app.organization),
+                                                                organization=functionality.app.organization),
                         functionality=functionality
                     )
                 self.stdout.write(self.style.SUCCESS(' + {} availabilities'.format(num_availabilities)))
