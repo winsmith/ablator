@@ -14,6 +14,7 @@ urlpatterns = [
     # App
     url(r'app/create/$', app.AppCreate.as_view(), name='app-create'),
     url(r'app/(?P<app_id>[^/]+)/$', app.AppDetail.as_view(), name='app-detail'),
+    url(r'app/(?P<app_id>[^/]+)/usage/$', app.AppUsage.as_view(), name='app-usage'),
     url(r'app/(?P<pk>[^/]+)/update/$', app.AppUpdate.as_view(), name='app-update'),
     url(r'app/(?P<pk>[^/]+)/delete/$', app.AppDelete.as_view(), name='app-delete'),
 
