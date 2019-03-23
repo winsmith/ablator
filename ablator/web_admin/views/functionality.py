@@ -22,6 +22,21 @@ class FunctionalityDetail(TemplateView):
 
 
 @method_decorator(login_required, name='dispatch')
+class FunctionalityFlavors(FunctionalityDetail):
+    template_name = 'core/functionality_flavors.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class FunctionalityRollouts(FunctionalityDetail):
+    template_name = 'core/functionality_rollouts.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class FunctionalityLogs(FunctionalityDetail):
+    template_name = 'core/functionality_logs.html'
+
+
+@method_decorator(login_required, name='dispatch')
 class FunctionalityPartEnabledUsers(FunctionalityDetail):
     template_name = 'core/functionality/_enabled_users.html'
 

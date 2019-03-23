@@ -1,0 +1,64 @@
+{% extends '_functionality_base.html' %}
+{% load humanize %}
+{% block home_nav_active %}active{% endblock %}
+{% block back %}
+<li class="breadcrumb-item"><a
+        href="{% url 'app-detail' functionality.app.id %}">{{ functionality.app.name }}</a></li>
+<li class="breadcrumb-item active">{{ functionality.name }}</li>
+
+{% endblock %}
+
+{% block app_content %}
+<section>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>Flavors
+                    <small><a class="btn btn-sm btn-outline-secondary"
+                              href="{% url 'functionality-update' functionality.id %}">Edit</a>
+                    </small>
+                </h1>
+                <p class="lead">
+                    {% spaceless %}
+                    <a href="{% url 'home' %}"
+                       class="text-dark">{{ functionality.app.organization }}</a>
+                    <span>.</span>
+                    <a href="{% url 'app-detail' functionality.app.id %}"
+                       class="text-dark">{{ functionality.app.slug }}</a>
+                    <span>.{{ functionality.slug }}</span>
+                    {% endspaceless %}
+                    <br>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr>
+<div id="functionality-enabled-users"
+     data-id="{% url 'functionality-part-enabled-users' functionality.id %}">
+    <div style="height: 10em; background: #fafafa;"></div>
+</div>
+
+{% if functionality.rollout_strategy == 'enable_globally' %}
+{% elif functionality.rollout_strategy == 'recall' %}
+{% else %}
+
+{% if functionality.flavor_set.all %}
+<section id="functionality-progress"
+         data-id="{% url 'functionality-part-progress' functionality.id %}">
+    <div style="height: 3em; background: #fafafa;"></div>
+</section>
+
+{% endif %}
+<section id="functionality-flavors"
+         data-id="{% url 'functionality-part-flavors' functionality.id %}">
+    <div style="height: 10em; background: #fafafa;"></div>
+</section>
+{% endif %}
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

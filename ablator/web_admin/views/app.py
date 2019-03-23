@@ -17,6 +17,7 @@ class AppDetail(TemplateView):
         return context_data
 
 
+@method_decorator(login_required, name='dispatch')
 class AppUsage(AppDetail):
     template_name = 'core/app_usage.html'
 
