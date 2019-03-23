@@ -6,6 +6,20 @@
 {% endblock %}
 
 {% block content %}
+        <h1>{{ app.name }}
+        <small><a class="btn btn-sm btn-outline-secondary"
+                  href="{% url 'app-update' app.id %}">Edit</a></small>
+    </h1>
+
+    <p class="lead">
+        {% spaceless %}
+            <a href="{% url 'home' %}" class="text-dark">{{ app.organization }}</a>
+            <span>.{{ app.slug }}</span>
+        {% endspaceless %}
+        <br>
+        <kbd>{{ app.id }}</kbd>
+    </p>
+    <hr>
     <div class="card-deck">
         {% for functionality in app.functionality_set.all %}
             <div class="card">
