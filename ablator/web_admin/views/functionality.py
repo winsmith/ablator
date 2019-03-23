@@ -17,6 +17,7 @@ class FunctionalityDetail(TemplateView):
         context_data = super().get_context_data(**kwargs)
         context_data['functionality'] = Functionality.objects.filter(
             app__organization=self.request.user.ablatoruser.organization).get(id=pk)
+        context_data['app'] = context_data['functionality'].app
         return context_data
 
 

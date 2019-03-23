@@ -1,11 +1,11 @@
-{% extends '_app_base.html' %}
+{% extends '_base.html' %}
 {% load humanize %}
 {% block home_nav_active %}active{% endblock %}
 {% block back %}
     <li class="breadcrumb-item active">{{ app.name }}</li>
 {% endblock %}
 
-{% block app_content %}
+{% block content %}
     <div class="card-deck">
         {% for functionality in app.functionality_set.all %}
             <div class="card">
